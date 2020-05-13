@@ -353,7 +353,7 @@ class LdapMultiAuthPluginConfig extends PluginConfig {
 			)) ,
 			'multiauth-debug' => new SectionBreakField(array(
 				'label' => $__('Debug Mode') ,
-				'hint' => $__('Turns debugging on or off check the "System Logs" for entires') ,
+				'hint' => $__('Turns debugging on or off check the "System Logs" for entries') ,
 			)) ,
 			'debug-choice' => new BooleanField(array(
 				'label' => $__('Debug') ,
