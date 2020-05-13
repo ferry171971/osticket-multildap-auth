@@ -505,4 +505,10 @@ class SyncLDAPMultiClass extends LDAPMultiAuthentication {
 		return $this->sync_results;
 	}
 }
+
+  if(isset($_POST['data'])){
+	  $id = str_replace('plugin.','',$_POST['data']);
+	  $sync = new SyncLDAPMultiClass($id);
+	  $sync->check_users();
+  }
 ?>
