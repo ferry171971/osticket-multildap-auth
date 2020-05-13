@@ -321,7 +321,7 @@ class LdapMultiAuthPluginConfig extends PluginConfig {
         $.ajax({ //Send the val to php file using Ajax in POST method
             type: "POST",
             data: {data: "' . $this->section . '"},
-            url: "' . OST_ROOT . '/scp/sync_mldap.php?ajax=true",
+            url: "' . OST_WEB_ROOT . 'scp/sync_mldap.php?ajax=true",
             success: function(data) { // Get the result and assign to each cases
                 console.log(data);
                 var json = $.parseJSON(data);
