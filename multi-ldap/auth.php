@@ -9,7 +9,7 @@ define('MULTI_PLUGIN_VERSION', '1.2');
 
 //FOLDERS
 define( 'OST_WEB_ROOT', osTicket::get_root_path(__DIR__));
-define( 'PLUGINS_ROOT', $_SERVER["DOCUMENT_ROOT"] . OST_WEB_ROOT . 'plugins/' );
+define( 'PLUGINS_ROOT', INCLUDE_DIR . 'plugins/' );
 define( 'MULTI_PLUGIN_ROOT', __DIR__ . '/');
 
 require_once ('config.php');
@@ -65,7 +65,7 @@ class LdapMultiAuthPlugin extends Plugin {
 		$this->crontime = $this->millisecsBetween($schedule, $lastrun, false) / 1000 / 60;
 		
 		$this->sync_cron($this->crontime);
-			include_once (INCLUDE_DIR . 'scp/sync_mldap.php');
+			include_once (INCLUDE_DIR . '../scp/sync_mldap.php');
 			$sync = new SyncLDAPMultiClass($this->id);
 			//$this->logger('warning', 'Sync Config', $sync->config);
 
