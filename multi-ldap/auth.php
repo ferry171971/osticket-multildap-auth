@@ -335,7 +335,7 @@ class LdapMultiAuthPlugin extends Plugin {
 	function pre_uninstall(&$errors) {
 		$this->logger('warning', 'pre_uninstall', $errors);
 		db_query("DROP TABLE IF EXISTS " . TABLE_PREFIX . "ldap_sync");
-		$name = INCLUDE_DIR . 'scp/sync_mldap.php';
+		$name = $_SERVER["DOCUMENT_ROOT"] . OST_WEB_ROOT . 'scp/sync_mldap.php';
 		$result = unlink($name);
 		if (!$result) return true;
 		return false;
