@@ -271,19 +271,19 @@ class LdapMultiAuthPlugin extends Plugin {
 		$file = $_SERVER["DOCUMENT_ROOT"] . OST_WEB_ROOT . 'scp/sync_mldap.php';
 		if (db_num_rows(db_query($sql))) {
 			if (!file_exists($file)) {
-				//echo $file;  || (filemtime($source) != @filemtime($file))
-				if (!copy($source, $file)) {
-					$this->logger('warning', "ldap sync copy failed", $source);
-					//return false;
+				if (!@copy($source, $file)) {
+					$this->logger('warning', "ldap sync copy failed", $source);					
 				} else {
 					$this->logger('info', "ldap sync copy completed", $source);
 				}
 			} elseif (filemtime($source) > @filemtime($file)) {
-				//$this->logger('info', "ldap sync file updated", $source);
-			}
-			
-			include_once $file;
-			//return true;
+				if (!@copy($source, $file)) {
+					$this->logger('warning', "ldap sync copy failed", $source);					
+				} else {
+					$this->logger('info', "ldap sync file updated", $source);
+				}			    
+			}			
+			include_once $file;			
 		}
 	}
 	
