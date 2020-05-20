@@ -130,7 +130,10 @@ class SyncLDAPMultiClass extends LDAPMultiAuthentication {
 		return rtrim($time, '0');
 	}
 
-	function getconfig($id) {
+	function getconfig($id=0) {
+		if($id = intval($id)) {
+			throw new InvalidArgumentException("Incorrect configuration ID : " .$id );
+		}
 		$this->configvalues;
 		$sql = "SELECT `key`,`value` FROM " . TABLE_PREFIX . "config WHERE `namespace` = 'plugin." . $id . "';";
 		$result = db_query($sql);
