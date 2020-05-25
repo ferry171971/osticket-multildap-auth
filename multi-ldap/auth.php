@@ -513,9 +513,11 @@ class LDAPMultiAuthentication {
 		}
 
 		$ldapinfo = $this->ldapinfo();
-
+		$conninfo = array();
+		$loginfo = array();
 		$chkUser = null;
 		$ldap = new AuthLdap();
+
 		foreach ($ldapinfo as $data) {
 			$ldap->serverType = 'ActiveDirectory';
 			$ldap->server = preg_split('/;|,/', $data['servers']);
@@ -556,19 +558,19 @@ class LDAPMultiAuthentication {
 			if ($chkUser) break; //Break if user autenticated
 			
 		} //end foreach
-		if (($conninfo['bool'] == false || $loginfo['bool'] == false) && !$chkUser) {
+	
+		if ($chkUser) {
+			if (!empty($user_info)) {
+				LdapMultiAuthPlugin::logger(LOG_INFO, 'ldap login (' . $username . '['.$this->type.'])', $loginfo[0]['msg']);
+			}
+			return $this->authOrCreate($username);
+		}
+		else {
 			$errmsg;
 			foreach ($loginfo as $err) {
 				$errmsg .= $err['msg'] . " ";
 			}
-
 			LdapMultiAuthPlugin::logger(LOG_INFO, 'login error (' . $username . ')', trim($errmsg));
-		}
-		if ($chkUser) {
-			if (!empty($user_info)) LdapMultiAuthPlugin::logger(LOG_INFO, 'ldap login (' . $username . '['.$this->type.'])', $loginfo[0]['msg']);
-			return $this->authOrCreate($username);
-		}
-		else {
 			return;
 		}
 	}
